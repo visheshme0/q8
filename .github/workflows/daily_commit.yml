@@ -1,9 +1,10 @@
 name: Daily Commit Workflow
 
-# Schedule the workflow to run once per day at 12:00 PM UTC
+# Define the events that trigger the workflow
 on:
   schedule:
     - cron: '0 12 * * *'  # This cron syntax schedules the action to run at 12:00 PM UTC daily.
+  workflow_dispatch:  # This enables manual triggering of the workflow
 
 jobs:
   daily_commit:
