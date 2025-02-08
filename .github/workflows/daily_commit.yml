@@ -14,18 +14,22 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v3
 
+    - name: Set up Git configuration
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "23f2003092@ds.study.iitm.ac.in"
+
     - name: Add commit with specific email (23f2003092@ds.study.iitm.ac.in)
       run: |
-        git config user.name "GitHub Actions"
-        git config user.email "23f2003092@ds.study.iitm.ac.in"  # Include your email as requested.
-        
         # Create or modify a file to trigger the commit
         echo "Daily commit at $(date)" > daily_commit.txt
         
         # Add and commit the file
         git add daily_commit.txt
         git commit -m "Daily commit: $(date)"
-        git push
+        
+        # Push the commit using the GITHUB_TOKEN for authentication
+        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
 
     - name: Ensure commit is made
       run: |
